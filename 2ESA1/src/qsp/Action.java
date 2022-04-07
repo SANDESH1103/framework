@@ -13,7 +13,7 @@ public class Action {
 
 		System.setProperty("webdriver.chrome.driver", "D:\\Selinium\\2ESA1\\driver\\chromedriver.exe");
 	}
-
+//main method
 	public static void main(String[] args) {
 		WebDriver driver=new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
