@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "bc0f6a62-34bc-4255-993b-8ea9831d164c",
+		"name": "Postman Scripting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"username\",2);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"//Multiple assertions\r",
+							"pm.test(\"Validating multiple fields in response\",function(){\r",
+							"var jsonBody=pm.response.json();\r",
+							"pm.expect(jsonBody.data.id).to.eql(2);\r",
+							"pm.expect(jsonBody.data.email).to.eql(\"janet.weaver@reqres.in\");\r",
+							"pm.expect(jsonBody.data.first_name).to.eql(\"Janet\");\r",
+							"});\r",
+							"\r",
+							"//Handling responce that don't parse\r",
+							"pm.test(\"Handling responce that don't parse\",function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"janet.weaver@reqres.in\");\r",
+							"});\r",
+							"\r",
+							"//Status code in one of set\r",
+							"pm.test(\"Status code is pass\",function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});\r",
+							"\r",
+							"//Testing Headers\r",
+							"pm.test(\"Header contains Content-Type or not\",function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Content-Type value\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							"//Testing cookies\r",
+							"pm.test(\"Cookies present or not\",function(){\r",
+							"   pm.expect(pm.cookies.has(\"\")).to.be.true;\r",
+							"  // pm.response.to.have.cookies(\"\");\r",
+							"});\r",
+							"pm.test(\"Cookies value present or not\",function(){\r",
+							"    pm.expect(pm.cookies.get(\"\")).to.be.eql(\"Safdgcb\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Responce time\r",
+							"\r",
+							"pm.test(\"Response time below 20ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{username}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"userId\",2);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
